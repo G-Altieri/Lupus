@@ -150,4 +150,4 @@ io.sockets.on('connection', function (socket, nickname) {
 
 
 // start server
-server.listen(8080);
+server.listen(80);
