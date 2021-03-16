@@ -150,4 +150,5 @@ io.sockets.on('connection', function (socket, nickname) {
 
 
 // start server
-server.listen(8080);
+var PORT = process.env.PORT || 8080;
+server.listen(PORT);
