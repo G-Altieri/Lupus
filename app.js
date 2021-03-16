@@ -109,7 +109,8 @@ io.sockets.on('connection', function (socket, nickname) {
 
     /*Generazione Ruoli */
     socket.on('generateRuoli', function (data) {
-     
+        console.log("Ruolo : " + data);
+        contRuoli(data);
     });
 
 
@@ -144,11 +145,19 @@ io.sockets.on('connection', function (socket, nickname) {
     });
 
 
+    function contRuoli(x) {
+        
+        var num = Number(x[0]) + (x.length - 1)
+
+        console.log("Numero Ruoli " + num)
+
+    }
+
 
 });
 
 
 
 // start server
-var PORT = process.env.PORT || 8080;
+var PORT = process.env.PORT || 80;
 server.listen(PORT);

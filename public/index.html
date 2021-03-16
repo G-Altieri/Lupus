@@ -9,7 +9,8 @@
     <meta name="description" content="s0ck3t_g4m3 with socket.io">
     <meta name="author" content="@geekoNERD">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <link rel="stylesheet" href="bootstrap.css">
     <link rel="stylesheet" href="style.css">
 
@@ -59,7 +60,7 @@
                 </div>
             </div>
         </div>
-        
+
         <center>
             <input type="button" id="init" value="INIZIA" style="display: none" />
             <input type="button" id="generate" value="Genera Ruoli" style="display: none" />
@@ -74,55 +75,67 @@
                 </div>
             </div>
         </div>
-        
-        <div id="ruoli" class="d-none">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                <label class="form-check-label" for="flexCheckDefault">
-                    Lupo
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                <label class="form-check-label" for="flexCheckChecked">
+
+        <div id="ruoli" class="d-none p-5">
+            <div class="row row-cols-lg-auto g-3 align-items-center">
+
+                <div class="col-6 form-check">
+                
+                    <label class="form-check-label" for="Lupo">
+                        Lupo
+                    </label>
+                </div>
+
+                <div class="col-6">
+                    <select class="form-select " aria-label="Default select example" id="numLupo">
+                        <option selected value="1">Uno</option>
+                        <option value="2">Due</option>
+                        <option value="3">Tre</option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="form-check row">
+                <input class="form-check-input" type="checkbox" value="" id="Investigatore">
+                <label class="form-check-label" for="Investigatore">
                     Investigatore
                 </label>
-              </div>
+            </div>
 
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                <label class="form-check-label" for="flexCheckChecked">
+            <div class="form-check row">
+                <input class="form-check-input" type="checkbox" value="" id="Puttana">
+                <label class="form-check-label" for="Puttana">
                     Puttana
                 </label>
-              </div>
+            </div>
 
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                <label class="form-check-label" for="flexCheckChecked">
+            <div class="form-check row">
+                <input class="form-check-input" type="checkbox" value="" id="Cittadino_Maledetto">
+                <label class="form-check-label" for="Cittadino_Maledetto">
                     Cittadino Maledetto
                 </label>
-              </div>
+            </div>
 
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                <label class="form-check-label" for="flexCheckChecked">
+            <div class="form-check row">
+                <input class="form-check-input" type="checkbox" value="" id="Pistolero">
+                <label class="form-check-label" for="Pistolero">
                     Pistolero
                 </label>
-              </div>
+            </div>
 
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                <label class="form-check-label" for="flexCheckChecked">
+            <div class="form-check row">
+                <input class="form-check-input" type="checkbox" value="" id="Cupido">
+                <label class="form-check-label" for="Cupido">
                     Cupido
                 </label>
-              </div>
+            </div>
 
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                <label class="form-check-label" for="flexCheckChecked">
+            <div class="form-check row">
+                <input class="form-check-input" type="checkbox" value="" id="Cittadino_Normale">
+                <label class="form-check-label" for="Cittadino_Normale">
                     Cittadino Normale
                 </label>
-              </div>
+            </div>
 
 
         </div>

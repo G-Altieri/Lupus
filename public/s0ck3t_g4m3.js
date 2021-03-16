@@ -91,7 +91,7 @@ jQuery(function () {
         });
         console.debug("» data » " + data);
         if (data.ismaster) {
-           masterView()
+            masterView()
         }
         loadPage("#board");
     });
@@ -134,6 +134,7 @@ jQuery(function () {
     //Generate 
     jQuery('#generate').on('click', function () {
         console.log("generateRuoli")
+        controllCheckboxRuoli();
         //$("#ruoli").text(ruoli)
         //socket.emit('generateRuoli');
     });
@@ -142,6 +143,47 @@ jQuery(function () {
     jQuery('#resetAdmin').on('click', function () {
         socket.emit('AdminReset');
     });
+
+
+    /*Funzione */
+    function controllCheckboxRuoli() {
+        var ruoli = []
+
+
+        var numLupi = $('#numLupo').val()
+        ruoli.push(numLupi)
+
+
+        if ($('#Investigatore').is(":checked")) {
+            ruoli.push("Investigatore")
+        }
+        if ($('#Puttana').is(":checked")) {
+            ruoli.push("Puttana")
+        }
+        if ($('#Cittadino_Maledetto').is(":checked")) {
+            ruoli.push("Cittadino_Maledetto")
+        }
+        if ($('#Pistolero').is(":checked")) {
+            ruoli.push("Pistolero")
+        }
+        if ($('#Cupido').is(":checked")) {
+            ruoli.push("Cupido")
+        }
+        if ($('#Cittadino_Normale').is(":checked")) {
+            ruoli.push("Cittadino Normale")
+        }
+
+
+
+
+
+
+
+
+        socket.emit("generateRuoli", ruoli);
+    }
+
+
 
 });
 
@@ -171,15 +213,16 @@ function hideMessage() {
 }
 
 
-//le cose che vede il master
-function masterView(){
+//master view on
+function masterView() {
     jQuery('#stop').show();
     jQuery('#generate').show();
     jQuery('#init').hide();
     $("#ruoli").removeClass("d-none")
 }
 
-function masterHidden(){
+//master view off
+function masterHidden() {
     jQuery('#stop').hide();
     jQuery('#generate').hide();
     jQuery('#init').hide();
