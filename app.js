@@ -107,11 +107,6 @@ io.sockets.on('connection', function (socket, nickname) {
         }
     }
 
-    /*Generazione Ruoli */
-    socket.on('generateRuoli', function (data) {
-        console.log("Ruolo : " + data);
-        contRuoli(data);
-    });
 
 
     /*Admin Page*/
@@ -144,14 +139,60 @@ io.sockets.on('connection', function (socket, nickname) {
         // socket.broadcast.emit('refresh_game', players);
     });
 
+    /*Generazione Ruoli */
+    socket.on('generateRuoli', function (data) {
+        // console.log("Ruolo : " + data);
+        contRuoli(data);
+    });
 
     function contRuoli(x) {
-        
-        var num = Number(x[0]) + (x.length - 1)
 
-        console.log("Numero Ruoli " + num)
+        for (let i = 0; i < x[0]; i++) {
+            ruoli.push("Lupo")
+        }
+
+        for (let i = 1; i < x.length; i++) {
+            ruoli.push(x[i])
+        }
+
+
+        // console.log("Ruoli "+ruoli)
+
+
+        var num = Number(x[0]) + (x.length - 1)
+        var n_player = players.length - 1
+        //console.log("Numero Ruoli " + num)
+
+        if (num == n_player) {
+            assegnaRuoli()
+        } else {
+            socket.emit("ErrorRuoli", n_player);
+            ruoli = []
+        }
 
     }
+
+
+    //Assegnazione Ruoli
+    function assegnaRuoli() {
+
+        var playerRuoli = []
+
+        for (let i = 1; i < players.length; i++) {
+
+
+            playerRuoli.push(players[i]);
+            playerRuoli.push(ruoli[i - 1]);
+
+        }
+
+        socket.emit("ReceiverRuoli", playerRuoli)
+        socket.broadcast.emit("ReceiverRuoli", playerRuoli)
+
+        ruoli = []
+
+    }
+
 
 
 });

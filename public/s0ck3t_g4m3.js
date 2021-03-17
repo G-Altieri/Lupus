@@ -2,7 +2,9 @@ jQuery(function () {
     var socket = io();
     showLoader();
     socket.emit('start');
-    var ruoli = []
+    var master = false
+    var nickname
+    var masterPerson
     // start
     socket.on('start', function (data) {
         in_game = false;
@@ -51,7 +53,7 @@ jQuery(function () {
     // join game
     socket.on('join_game', function (data) {
         console.log("» join_game");
-        var nickname = jQuery('#nickname').val();
+        nickname = jQuery('#nickname').val();
         jQuery('#players').empty();
         jQuery.each(data, function (i, e) {
             jQuery('#players').append(
@@ -67,7 +69,7 @@ jQuery(function () {
     socket.on('refresh_game', function (data) {
         if (true) { //var in_game
             console.log("» refresh_game");
-            var nickname = jQuery('#nickname').val();
+            //var nickname = jQuery('#nickname').val();
             jQuery('#players').empty();
             jQuery.each(data, function (i, e) {
                 jQuery('#players').append(
@@ -80,8 +82,9 @@ jQuery(function () {
     // start game
     socket.on('start_game', function (data) {
         console.log("» start_game");
-        var nickname = jQuery('#nickname').val();
+        //var nickname = jQuery('#nickname').val();
         jQuery('#master').text("Narratore : " + data.master);
+        masterPerson = data.master;
         jQuery.each(data.players, function (i, e) {
             if (e == data.master) {} else {
                 jQuery('#foe').append(
@@ -91,6 +94,7 @@ jQuery(function () {
         });
         console.debug("» data » " + data);
         if (data.ismaster) {
+            master = true;
             masterView()
         }
         loadPage("#board");
@@ -173,15 +177,67 @@ jQuery(function () {
             ruoli.push("Cittadino Normale")
         }
 
-
-
-
-
-
-
-
         socket.emit("generateRuoli", ruoli);
     }
+
+    //Gestione Errore Ruoli
+    socket.on("ErrorRuoli", function (data) {
+        showMessage("Il numero dei ruoli non e uguale al numero di giocatori, inserire: " + data + " ruoli", "bg-warning")
+    })
+
+    //Ricezione Ruoli
+    socket.on('ReceiverRuoli', function (data) {
+
+        console.log("» ReceiverRuoli_game");
+
+
+        jQuery('#foe').empty();
+
+
+        for (let i = 0; i < data.length; i++) {
+            if (master) {
+                if (data[i] == masterPerson) {} else {
+                    if (i % 2 == 1) {} else {
+                        jQuery('#foe').append(jQuery('<li></li>').addClass((data[i] === nickname) ? 'bg-success' : '').text(data[i] + " ---> " + data[i + 1]));
+
+                    }
+                }
+            } else {
+                if (i % 2 == 1) {} else {
+                    if(data[i] === nickname){
+                        jQuery('#foe').append(jQuery('<li></li>').addClass('bg-success').text(data[i] + " ---> " + data[i + 1]));
+
+                    }else{
+                        jQuery('#foe').append(jQuery('<li></li>').addClass('').text(data[i]));
+                    }
+                }
+
+            }
+
+        }
+    });
+
+
+    /*    jQuery.each(data, function (i, e) {
+            console.log("E : "+e)
+            console.log("E+1 : "+e+1)
+            console.log("E[] : "+e[1])
+
+            if (master) {
+                if (e == masterPerson) {
+                }else{
+                    jQuery('#foe').append(jQuery('<li></li>').addClass((e === nickname) ? 'bg-success' : '').text(e));
+                }
+            } else {
+                if (i % 2 == 1) {
+                }else{
+                    jQuery('#foe').append(jQuery('<li></li>').addClass((e === nickname) ? 'bg-success' : '').text(e));
+                }
+
+            }
+        });
+
+    });*/
 
 
 
