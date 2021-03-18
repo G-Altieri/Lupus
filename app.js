@@ -6,7 +6,7 @@ var app = require('express')(),
     ent = require('ent');
 
 const min_players = 1;
-const timeout = 50000;
+const timeout = 50000; //non lo uso, era presente nel template game per startare la partita
 var game_started = false;
 var players = [];
 var timeoutObj = false;
@@ -120,52 +120,91 @@ io.sockets.on('connection', function (socket, nickname) {
     socket.on('disconnect', function (data) {
         //console.log('Got disconnect! '+socket.name);
 
+        //Se il giocatore e l host chiudo la sessione
         if (socket.name == game_started) {
             cleanStatus();
             socket.emit('stop_game');
             socket.broadcast.emit('stop_game');
         }
 
-
+        //Rimuovo il socket uscente dal array dei socket
         var i = allClients.indexOf(socket);
         allClients.splice(i, 1);
-        //console.log(players)
+        
+        //Rimuovo il giocatore uscito dai players
         var k = players.indexOf(socket.name);
         players.splice(k, 1);
-        //console.log(players)
+       
+        //Aggiorno
         socket.broadcast.emit('refresh_game', players);
 
-        // players
-        // socket.broadcast.emit('refresh_game', players);
+
     });
 
     /*Generazione Ruoli */
     socket.on('generateRuoli', function (data) {
-        // console.log("Ruolo : " + data);
         contRuoli(data);
     });
 
     function contRuoli(x) {
 
+
+        // console.log("Numero dei ruoli "+x)
+
+        //Assegno per ogni valore di ruolo un ruolo stringa
+        //Ruolo Lupo
         for (let i = 0; i < x[0]; i++) {
             ruoli.push("Lupo")
         }
 
-        for (let i = 1; i < x.length; i++) {
-            ruoli.push(x[i])
+        //Ruolo Investigatore
+        for (let i = 0; i < x[1]; i++) {
+            ruoli.push("Investigatore")
         }
 
+        //Ruolo Puttana
+        for (let i = 0; i < x[2]; i++) {
+            ruoli.push("Puttana")
+        }
 
-        // console.log("Ruoli "+ruoli)
+        //Ruolo Cittadino Maledetto
+        for (let i = 0; i < x[3]; i++) {
+            ruoli.push("Cittadino Maledetto")
+        }
 
+        //Ruolo Pistolero
+        for (let i = 0; i < x[4]; i++) {
+            ruoli.push("Pistolero")
+        }
 
-        var num = Number(x[0]) + (x.length - 1)
+        //Ruolo Cupido
+        for (let i = 0; i < x[5]; i++) {
+            ruoli.push("Cupido")
+        }
+
+        //Ruolo Cittadino Normale
+        for (let i = 0; i < x[6]; i++) {
+            ruoli.push("Cittadino Normale")
+        }
+
+        //Conto il numero di ruoli e li controllo con i player
+        //Conto il numero di ruoli
+        var num = 0
+        for (let i = 0; i < x.length; i++) {
+            num += Number(x[i])
+            //  console.log("num "+num+" x "+x[1])
+        }
+
+        //Conto il numero di player e tolgo il narratore ovvero una persona
         var n_player = players.length - 1
-        //console.log("Numero Ruoli " + num)
 
-        if ( num == n_player) {
+        // console.log("Numero ruoli " + num + " numero player " + n_player + " Ruoli: " + ruoli)
+
+        if (num == n_player) {
+            //se sono uguali assegna i ruoli
             assegnaRuoli()
         } else {
+            //senno errore e ripulisco arrai dei ruoli per la prossima generazione
             socket.emit("ErrorRuoli", n_player);
             ruoli = []
         }
@@ -176,38 +215,31 @@ io.sockets.on('connection', function (socket, nickname) {
     //Assegnazione Ruoli
     function assegnaRuoli() {
 
-        var playerRuoli = []
+        var playerRuoli = [] //Varibile che associera ruoli e player
+        var number = []; //Varibile per randomizare univocamente
 
-        var number = []
-
-        for (let index = 0; index < ruoli.length; index++) {
-            number.push(index);
-        }
-
-
-
-
-        var number = [];
+        //Generazione numeri random
         while (number.length < ruoli.length) {
-            var r = Math.floor(Math.random() * ruoli.length) + 1;
+            var r = Math.floor(Math.random() * ruoli.length);
             if (number.indexOf(r) === -1) number.push(r);
         }
-        //console.log(number)
-        
+
+
+        //Associo Player e ruoli, inizio da i=1 perche salto il narratore
         for (let i = 1; i < players.length; i++) {
 
             playerRuoli.push(players[i]);
 
             //console.log(Math.floor(Math.random() * ruoli.length))
-            
-            var k = ruoli[number[i-1]]
-            if(k == null){
-                playerRuoli.push("Lupo");
-            }else{
-                playerRuoli.push(k);
-            }
+
+            var k = ruoli[number[i - 1]]
+
+            playerRuoli.push(k);
+
 
         }
+
+        //console.log("Player con Ruoli "+playerRuoli)
 
         socket.emit("ReceiverRuoli", playerRuoli)
         socket.broadcast.emit("ReceiverRuoli", playerRuoli)

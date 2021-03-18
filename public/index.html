@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="it">
 
 <head>
     <meta charset="utf-8">
@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="style.css">
 
     <!---Icon-->
-    <link rel="icon" href="./assets/img/icon.png">
+    <link rel="icon" href="./assets/img/favicon.png">
 
 </head>
 
@@ -33,7 +33,7 @@
             </span>
         </h1>
 
-        <h1 class="ml12 text-white opacity0">For La Mandria </h1>
+        <h1 class="ml12 text-white opacity0">La Mandria </h1>
 
 
 
@@ -74,6 +74,24 @@
         </div>
 
 
+
+
+
+
+        <!-- Bottoni del Master Creatore -->
+        <center>
+            <input type="button" id="generate" value="Genera Ruoli" class="btn btn-primary m-5" style="display: none" />
+            <input type="button" id="stop" value="TERMINA" class="btn btn-primary m-5" style="display: none" />
+        </center>
+
+
+
+        <!-- Numero Giocatori -->
+        <div class="hidden numplayer fs-3" id="numPlayer">
+
+        </div>
+
+
         <!-- Entrata in lobby -->
         <div id="lobby" class="hidden app-panel text-white">
             <div class="panel2 text-center">
@@ -84,14 +102,10 @@
         </div>
 
 
-
-        <!-- Bottoni del Master Creatore -->
+        <!-- Button Inizia -->
         <center>
             <input type="button" id="init" value="INIZIA" class="btn btn-primary mt-5" style="display: none" />
-            <input type="button" id="generate" value="Genera Ruoli" class="btn btn-primary m-5" style="display: none" />
-            <input type="button" id="stop" value="TERMINA" class="btn btn-primary m-5" style="display: none" />
         </center>
-
 
         <!-- Progess Spinener Lobby-->
         <div id="progress" class="text-center hidden">
@@ -99,11 +113,6 @@
                 <span class="visually-hidden">Loading...</span>
             </div>
         </div>
-
-
-
-
-
 
 
         <!-- In game -->
@@ -117,19 +126,30 @@
             </div>
         </div>
 
+
+
+
+
+        <!-- Numero Giocatori -->
+        <div class="hidden numplayer fs-3 mt-5" id="numRuoli">
+
+        </div>
+
+
         <!-- In Game Master Option -->
         <div id="ruoli" class="d-none p-5 text-white option-master">
+
+
+            <!-- Lupo -->
             <div class="row row-cols-lg-auto g-3 align-items-center">
-
                 <div class="col-6 form-check">
-
                     <label class="form-check-label" for="Lupo">
                         Lupo
                     </label>
                 </div>
 
                 <div class="col-6">
-                    <select class="form-select " aria-label="Default select example" id="numLupo">
+                    <select class="form-select " aria-label="Default select example" id="selecLupo">
                         <option selected value="1">Uno</option>
                         <option value="2">Due</option>
                         <option value="3">Tre</option>
@@ -137,47 +157,134 @@
                 </div>
 
             </div>
-            <div class="form-check row">
-                <input class="form-check-input" type="checkbox" value="" id="Investigatore">
-                <label class="form-check-label" for="Investigatore">
-                    Investigatore
-                </label>
+            <!-- Investigatore -->
+            <div class="row row-cols-lg-auto g-3 align-items-center">
+                <div class="col-6 form-check">
+                    <div class="form-check row">
+                        <input class="form-check-input" type="checkbox" value="" id="checkInvestigatore">
+                        <label class="form-check-label" for="checkInvestigatore">
+                            Investigatore
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <select class="form-select" aria-label="Default select example" id="selecInvestigatore" Disabled>
+                        <option selected value="1">Uno</option>
+                        <option value="2">Due</option>
+                        <option value="3">Tre</option>
+                    </select>
+                </div>
+
             </div>
 
-            <div class="form-check row">
-                <input class="form-check-input" type="checkbox" value="" id="Puttana">
-                <label class="form-check-label" for="Puttana">
-                    Puttana
-                </label>
+            <!-- Puttana -->
+            <div class="row row-cols-lg-auto g-3 align-items-center">
+                <div class="col-6 form-check">
+                    <div class="form-check row">
+                        <input class="form-check-input" type="checkbox" value="" id="checkPuttana">
+                        <label class="form-check-label" for="checkPuttana">
+                            Puttana
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <select class="form-select" aria-label="Default select example" id="selecPuttana" Disabled>
+                        <option selected value="1">Uno</option>
+                        <option value="2">Due</option>
+                        <option value="3">Tre</option>
+                    </select>
+                </div>
+
             </div>
 
-            <div class="form-check row">
-                <input class="form-check-input" type="checkbox" value="" id="Cittadino_Maledetto">
-                <label class="form-check-label" for="Cittadino_Maledetto">
-                    Cittadino Maledetto
-                </label>
+            <!--  Cittadino Maledetto -->
+            <div class="row row-cols-lg-auto g-3 align-items-center">
+                <div class="col-6 form-check">
+                    <div class="form-check row">
+                        <input class="form-check-input" type="checkbox" value="" id="checkCittadinoMaledetto">
+                        <label class="form-check-label" for="checkCittadinoMaledetto">
+                            Cittadino Maledetto
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <select class="form-select" aria-label="Default select example" id="selecCittadinoMaledetto"
+                        Disabled>
+                        <option selected value="1">Uno</option>
+                        <option value="2">Due</option>
+                        <option value="3">Tre</option>
+                    </select>
+                </div>
+
             </div>
 
-            <div class="form-check row">
-                <input class="form-check-input" type="checkbox" value="" id="Pistolero">
-                <label class="form-check-label" for="Pistolero">
-                    Pistolero
-                </label>
+            <!--   Pistolero -->
+            <div class="row row-cols-lg-auto g-3 align-items-center">
+                <div class="col-6 form-check">
+                    <div class="form-check row">
+                        <input class="form-check-input" type="checkbox" value="" id="checkPistolero">
+                        <label class="form-check-label" for="checkPistolero">
+                            Pistolero
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <select class="form-select" aria-label="Default select example" id="selecPistolero" Disabled>
+                        <option selected value="1">Uno</option>
+                        <option value="2">Due</option>
+                        <option value="3">Tre</option>
+                    </select>
+                </div>
+
             </div>
 
-            <div class="form-check row">
-                <input class="form-check-input" type="checkbox" value="" id="Cupido">
-                <label class="form-check-label" for="Cupido">
-                    Cupido
-                </label>
+            <!--   Cupido -->
+            <div class="row row-cols-lg-auto g-3 align-items-center">
+                <div class="col-6 form-check">
+                    <div class="form-check row">
+                        <input class="form-check-input" type="checkbox" value="" id="checkCupido">
+                        <label class="form-check-label" for="checkCupido">
+                            Cupido
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <select class="form-select" aria-label="Default select example" id="selecCupido" Disabled>
+                        <option selected value="1">Uno</option>
+                        <option value="2">Due</option>
+                        <option value="3">Tre</option>
+                    </select>
+                </div>
+
             </div>
 
-            <div class="form-check row">
-                <input class="form-check-input" type="checkbox" value="" id="Cittadino_Normale">
-                <label class="form-check-label" for="Cittadino_Normale">
-                    Cittadino Normale
-                </label>
+            <!--   Cittadino Normale -->
+            <div class="row row-cols-lg-auto g-3 align-items-center">
+                <div class="col-6 form-check">
+                    <div class="form-check row">
+                        <input class="form-check-input" type="checkbox" value="" id="checkCittadinoNormale">
+                        <label class="form-check-label" for="checkCittadinoNormale">
+                            Cittadino Normale
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <select class="form-select" aria-label="Default select example" id="selecCittadinoNormale" Disabled>
+                        <option selected value="1">Uno</option>
+                        <option value="2">Due</option>
+                        <option value="3">Tre</option>
+                    </select>
+                </div>
+
             </div>
+
+            <!-- Altri Personaggi in futuro -->
 
 
         </div>
@@ -185,7 +292,12 @@
     </div>
 
     <!-- BG -->
-    <img src="./assets/img/bg.jpg" alt="" class="img">
+    <img src="./assets/img/bg.jpg" alt="" class="img opacity0" id="bg">
+
+
+    <!-- Footer -->
+    <div class="footerCreator"><a href="https://github.com/G-Altieri" target="_blank">Developed by Giovanni</a></div>
+
 
     <!-- Script -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
@@ -195,5 +307,6 @@
     <script src="s0ck3t_g4m3.js"></script>
 
 </body>
+
 
 </html>
