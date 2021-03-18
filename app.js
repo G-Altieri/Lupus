@@ -163,7 +163,7 @@ io.sockets.on('connection', function (socket, nickname) {
         var n_player = players.length - 1
         //console.log("Numero Ruoli " + num)
 
-        if ( /*num == n_player*/ true) {
+        if ( num == n_player) {
             assegnaRuoli()
         } else {
             socket.emit("ErrorRuoli", n_player);
@@ -192,7 +192,7 @@ io.sockets.on('connection', function (socket, nickname) {
             var r = Math.floor(Math.random() * ruoli.length) + 1;
             if (number.indexOf(r) === -1) number.push(r);
         }
-        console.log(number)
+        //console.log(number)
         
         for (let i = 1; i < players.length; i++) {
 

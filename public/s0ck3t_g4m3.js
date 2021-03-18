@@ -22,7 +22,7 @@ jQuery(function () {
     jQuery('#game').on('click', function () {
         var nickname = jQuery('#nickname').val();
         if (!nickname) {
-            showMessage('Nome obbligatorio!', 'bg-error');
+            showMessage('Nome obbligatorio!', 'alert-danger');
         } else {
             showLoader();
             socket.emit(jQuery('#type').val() + '_game', nickname);
@@ -47,7 +47,7 @@ jQuery(function () {
     // nickname already in use
     socket.on('already_in_game', function (data) {
         console.log("» already in game");
-        showMessage('Utente [' + data + '] gi&agrave; utilizzato!', 'bg-error');
+        showMessage('Utente [' + data + '] gia utilizzato!  Cambiare Nickname', 'alert-danger');
     });
 
     // join game
@@ -83,7 +83,7 @@ jQuery(function () {
     socket.on('start_game', function (data) {
         console.log("» start_game");
         //var nickname = jQuery('#nickname').val();
-        jQuery('#master').text("Narratore : " + data.master);
+        jQuery('#master').html("Narratore &nbsp; &nbsp; &#10140; &nbsp; &nbsp;" + data.master);
         masterPerson = data.master;
         jQuery.each(data.players, function (i, e) {
             if (e == data.master) {} else {
@@ -106,7 +106,7 @@ jQuery(function () {
         showLoader();
         socket.emit('start');
         showMessage('Numero minimo di partecipanti [' +
-            data + '] non raggiunto!', 'bg-warning');
+            data + '] non raggiunto!', 'alert-danger');
     });
 
     // stop game
@@ -182,7 +182,7 @@ jQuery(function () {
 
     //Gestione Errore Ruoli
     socket.on("ErrorRuoli", function (data) {
-        showMessage("Il numero dei ruoli non e uguale al numero di giocatori, inserire: " + data + " ruoli", "bg-warning")
+        showMessage("Il numero dei ruoli non e uguale al numero di giocatori, inserire: " + data + " ruoli", "alert-danger")
     })
 
     //Ricezione Ruoli
@@ -198,17 +198,17 @@ jQuery(function () {
             if (master) {
                 if (data[i] == masterPerson) {} else {
                     if (i % 2 == 1) {} else {
-                        jQuery('#foe').append(jQuery('<li></li>').addClass((data[i] === nickname) ? 'bg-success' : '').text(data[i] + " ---> " + data[i + 1]));
+                        jQuery('#foe').append(jQuery('<li></li>').addClass((data[i] === nickname) ? 'bg-success' : '').html(data[i] + "&nbsp;  &#10140;  &nbsp; " + data[i + 1]));
 
                     }
                 }
             } else {
                 if (i % 2 == 1) {} else {
                     if(data[i] === nickname){
-                        jQuery('#foe').append(jQuery('<li></li>').addClass('bg-success').text(data[i] + " ---> " + data[i + 1]));
+                        jQuery('#foe').append(jQuery('<li></li>').addClass('bg-success').html(data[i] + " &nbsp;  &#10140;  &nbsp;  " + data[i + 1]));
 
                     }else{
-                        jQuery('#foe').append(jQuery('<li></li>').addClass('').text(data[i]));
+                        jQuery('#foe').append(jQuery('<li></li>').addClass('').html(data[i]));
                     }
                 }
 
@@ -284,3 +284,77 @@ function masterHidden() {
     jQuery('#init').hide();
     $("#ruoli").addClass("d-none")
 }
+
+
+
+//  Titolo Lupus
+var textWrapper = document.querySelector('.ml9 .letters');
+textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+
+//For la mandria
+var textWrapper = document.querySelector('.ml12');
+textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+
+
+anime.timeline({loop: false})
+  .add({
+    targets: '.ml9 .letter',
+    scale: [0, 1],
+    duration: 1500,
+    elasticity: 600,
+    delay: (el, i) => 45 * (i+1)
+  })    
+  
+  .add({
+    targets: '.ml12 .letter',
+    translateX: [40,0],
+    translateZ: 0,
+    opacity: [0,1],
+    easing: "easeOutExpo",
+    duration: 1200,
+    delay: (el, i) => 500 + 30 * i,
+    begin: function() {
+        $('.ml12').removeClass("opacity0");
+      },
+  },'1000')
+
+  .add({
+    targets: '.iconLeaf',
+    translateX: [60,0],
+    translateZ: 0,
+    rotate:'50deg',
+    opacity: [0,1],
+    easing: "easeOutExpo",
+    duration: 2000,
+    delay: 0,
+    begin: function() {
+        $('.iconLeaf').removeClass("opacity0");
+      },
+  },'1500')
+
+
+  /*
+  animatione in uscita 1
+  .add({
+    targets: '.ml9',
+    opacity: 0,
+    duration: 1000,
+    easing: "easeOutExpo",
+    delay: 1000
+  });
+
+  2
+.add({
+    targets: '.ml12 .letter',
+    translateX: [0,-30],
+    opacity: [1,0],
+    easing: "easeInExpo",
+    duration: 1100,
+    delay: (el, i) => 100 + 30 * i
+  });*/
+
+
+
+
+
+  

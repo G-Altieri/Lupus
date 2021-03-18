@@ -1,37 +1,151 @@
+@font-face {
+    font-family: 'gameFont';
+    src: url('./assets/font/fontLupus.ttf');
+    src: local('gameFont'), url('./assets/font/fontLupus.ttf') format('truetype');
+}
+
+html body {
+    font-family: "gameFont";
+    overflow-x: hidden;
+}
+
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
 #progress {
-    position: fixed;
-    top: 0;
+    position: relative;
+    top: 50px;
     right: 0;
     width: 40px;
     height: 40px;
-    background-color: black;
+    margin: 0 auto;
 }
 
-#splash {
-    background-color: #d1d6ff
-}
 
-#lobby {
-    background-color: #ff7b87;
-}
 
-#board {
-    background-color: #7bff8c !important;
+.opacity0 {
+    opacity: 0;
 }
 
 .bg-success {
-    background-color: rgba(43, 235, 26, 0.4) !important;
+    background-color: rgba(21, 255, 0, 0.6) !important;
+    border-radius: 25px;
+    border-color: #15ff00;
+    color: white;
 }
 
-body{
+body {
     background: #010010;
 }
 
-.img{
+.img {
     position: absolute;
     bottom: 0;
-    left: 0;
+    left: 50%;
     width: 100%;
     z-index: -1;
+    max-width: 1000px;
+    transform: translateX(-50%);
 }
 
+
+.ml9 {
+    position: relative;
+    font-weight: 200;
+    font-size: 3em;
+}
+
+.ml9 .text-wrapper {
+    position: relative;
+    display: inline-block;
+    padding-top: 0.2em;
+    padding-right: 0.05em;
+    padding-bottom: 0.1em;
+    overflow: hidden;
+    transform: translateX(-50%);
+    left: 50%;
+}
+
+.ml9 .letter {
+    transform-origin: 50% 100%;
+    display: inline-block;
+    line-height: 1em;
+}
+
+.ml12 {
+    font-weight: 200;
+    font-size: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5rem;
+    text-align: right;
+    margin-top: -10px;
+}
+
+.ml12 .letter {
+    display: inline-block;
+    line-height: 1em;
+}
+
+
+.iconLeaf {
+    font-size: 5rem;
+    color: green;
+    transform: rotate(50deg);
+    position: relative;
+    top: -30px;
+    left: -20px;
+}
+
+.panel1 {
+    background: #010010;
+}
+
+.panel2 {
+    background: #010010;
+    border: 3px solid rgb(101, 0, 141);
+    border-radius: 25px;
+}
+
+
+.nickClass {
+    margin: 0 auto;
+    max-width: 400px;
+}
+
+.btnClass {
+    margin-top: 10px;
+}
+
+.btn {
+    width: 100px;
+}
+
+
+.alert-danger {
+
+    color: white;
+    background-color: #911f1f;
+    border-color: #ff0029;
+
+}
+
+.option-master{
+    border: 3px solid cyan;
+    border-radius: 25px;
+    margin-top: 50px;
+    background: rgba(0,0,0, 0.5);
+}
+.new1 {
+    border:4px solid #bdca00;
+    border-radius: 5px;
+  }
+
+@media screen and (min-width: 400px) {
+    .ml9 {
+        font-size: 4em;
+    }
+}
