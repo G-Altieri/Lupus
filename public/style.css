@@ -22,3 +22,16 @@
 .bg-success {
     background-color: rgba(43, 235, 26, 0.4) !important;
 }
+
+body{
+    background: #010010;
+}
+
+.img{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: -1;
+}
+
