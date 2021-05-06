@@ -1,1 +1,2 @@
-# s0ck3t_g4m3
+# Lupus in Tabula Generator
+# https://app-lupus.herokuapp.com/
